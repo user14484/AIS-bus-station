@@ -22,6 +22,8 @@ namespace AIS_bus_station
         private debug Debug = new debug();
         // Объект вывода диалоговых окон
         private Infomation Info = new Infomation();
+        // Информация о пользователе из БД
+        private Dictionary<string, string> DataUser = new Dictionary<string, string>();
 
 
         // Инизиализация самой формы
@@ -50,7 +52,20 @@ namespace AIS_bus_station
             if(string.IsNullOrEmpty(login))
             {
                 Info.Warning("Поле логина не может быть пустым");
+                return;
             }
+
+            // Поиск пользователя и проверка пароля пользователя
+            db.Open();
+            if(Convert.ToInt32(db.QuaryStr($"SELECT COUNT(*) FROM users WHERE login='{login}' AND password='{password}'")) > 0)
+            {
+                DataUser = db.QuaryMas($"SELECT * FROM users WHERE login='{login}' AND password='{password}'").OrderBy(kvp => kvp.Key).First().Value;
+            }
+            else
+            {
+                Info.Error("Неверный логин или пароль!");
+            }
+            db.Close();
         }
     }
 }
