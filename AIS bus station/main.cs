@@ -30,8 +30,19 @@ namespace AIS_bus_station
         private Dictionary<int, Dictionary<string, string>> AllSales = new Dictionary<int, Dictionary<string, string>>();
         private Dictionary<int, Dictionary<string, string>> AllTickets = new Dictionary<int, Dictionary<string, string>>();
 
+        // Настройки программы
+        private Dictionary<string, string> Settings = new Dictionary<string, string>();
+
         public main(Dictionary<string, string> data)
         {
+            // Загрузка настроек
+            IniFile INI = new IniFile("config.ini");
+            if (!INI.KeyExists("dev", "load_tables_dalay"))
+            {
+                INI.Write("dev", "load_tables_dalay", "400");
+            }
+            Settings.Add("load_tables_dalay", INI.ReadINI("dev", "load_tables_dalay"));
+
             db.Open();
             DataUser = data;
             InitializeComponent();
@@ -56,6 +67,7 @@ namespace AIS_bus_station
 
             LoadBuses("SELECT * FROM buses");
             LoadRoutes("SELECT * FROM routes");
+            LoadTickets("SELECT * FROM tickets");
         }
 
         // Функция загрузки автобусов из бд
@@ -134,7 +146,7 @@ namespace AIS_bus_station
 
         }
 
-        // Функция загрузки автобусов из бд
+        // Функция загрузки маршрутов из бд
         private async void LoadRoutes(string query)
         {
             Dictionary<int, string> DictionaryBuses = new Dictionary<int, string>();
@@ -208,14 +220,6 @@ namespace AIS_bus_station
                     Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
                 }, 0, table.RowCount - 1);
 
-                for (int i = 0; i < ((ComboBox)table.Controls[$"RouteBus_{route["id"]}"]).Items.Count; i++)
-                {
-                    if (((ComboBox)table.Controls[$"RouteBus_{route["id"]}"]).Items[i].ToString() == "МАЗ-241")
-                    {
-                        ((ComboBox)table.Controls[$"RouteBus_{route["id"]}"]).SelectedIndex = i;
-                    }
-                }
-
                 table.Controls.Add(new TextBox()
                 {
                     Name = "RouteDeparturePoint_" + route["id"],
@@ -245,7 +249,7 @@ namespace AIS_bus_station
                 }, 4, table.RowCount - 1);
                 table.Controls.Add(new Button()
                 {
-                    Name = "BusEdit_" + route["id"],
+                    Name = "RouteEdit_" + route["id"],
                     Text = "Изменить",
                     Font = fonts.UseGaret(8.0F),
                     Dock = DockStyle.Fill
@@ -260,14 +264,14 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            await Task.Run(() => EditTextBox(table));
+            await Task.Run(() => EditTextBoxRoutes(table));
         }
 
-        private async void EditTextBox(TableLayoutPanel table)
+        private async void EditTextBoxRoutes(TableLayoutPanel table)
         {
             if (table.InvokeRequired)
             {
-                await Task.Delay(100);
+                await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
                 table.Invoke(new MethodInvoker(delegate
                 {
                     foreach (Dictionary<string, string> route in AllRoutes.Values)
@@ -300,6 +304,149 @@ namespace AIS_bus_station
                 $"WHERE id={id}");
 
             Info.Info("Маршрут успешно отредактирован!");
+        }
+
+        // Функция загрузки билетов из бд
+        private async void LoadTickets(string query)
+        {
+            Dictionary<int, string> DictionaryRoutes = new Dictionary<int, string>();
+
+            foreach (Dictionary<string, string> route in AllRoutes.Values)
+            {
+                DictionaryRoutes.Add(Convert.ToInt32(route["id"]), route["number"]);
+            }
+
+            TableLayoutPanel table = tableLayoutPanel10;
+            AllTickets = db.QuaryMas(query);
+            table.RowCount = 0;
+            table.Controls.Clear();
+            table.RowCount = table.RowCount + 1;
+            table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            table.Controls.Add(new Label()
+            {
+                Name = "TicketsLabel1",
+                Text = "Маршрут",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 0, table.RowCount - 1);
+            table.Controls.Add(new Label()
+            {
+                Name = "TicketsLabel2",
+                Text = "Время отправления",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 1, table.RowCount - 1);
+            table.Controls.Add(new Label()
+            {
+                Name = "TicketsLabel3",
+                Text = "Время прибытия",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 2, table.RowCount - 1);
+            table.Controls.Add(new Label()
+            {
+                Name = "TicketsLabel4",
+                Text = "Цена",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 3, table.RowCount - 1);
+            foreach (Dictionary<string, string> ticket in AllTickets.Values)
+            {
+                table.RowCount = table.RowCount + 1;
+                table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+                table.Controls.Add(new ComboBox()
+                {
+                    Name = "TicketsRoute_" + ticket["id"],
+                    DropDownStyle = ComboBoxStyle.DropDownList,
+                    DisplayMember = "Value",
+                    ValueMember = "Key",
+                    DataSource = new BindingSource(DictionaryRoutes, null),
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 0, table.RowCount - 1);
+
+                table.Controls.Add(new TextBox()
+                {
+                    Name = "TicketsTimeStart_" + ticket["id"],
+                    Text = ticket["time_start"],
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 1, table.RowCount - 1);
+                table.Controls.Add(new TextBox()
+                {
+                    Name = "TicketsTimeEnd_" + ticket["id"],
+                    Text = ticket["time_end"],
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 2, table.RowCount - 1);
+                table.Controls.Add(new TextBox()
+                {
+                    Name = "TicketsPrice_" + ticket["id"],
+                    Text = ticket["price"],
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 3, table.RowCount - 1);
+                table.Controls.Add(new Button()
+                {
+                    Name = "TicketsEdit_" + ticket["id"],
+                    Text = "Изменить",
+                    Font = fonts.UseGaret(8.0F),
+                    Dock = DockStyle.Fill
+                }, 4, table.RowCount - 1);
+            }
+            foreach (Control button in table.Controls)
+            {
+                if (button.GetType() == typeof(Button))
+                {
+                    button.Click += new System.EventHandler(this.TicketsButton_Click);
+                }
+            }
+            table.RowCount = table.RowCount + 1;
+            table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            await Task.Run(() => EditTextBoxTickets(table));
+        }
+
+        private async void EditTextBoxTickets(TableLayoutPanel table)
+        {
+            if (table.InvokeRequired)
+            {
+                await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+                table.Invoke(new MethodInvoker(delegate
+                {
+                    foreach (Dictionary<string, string> ticket in AllTickets.Values)
+                    {
+                        ((ComboBox)table.Controls["TicketsRoute_" + ticket["id"]]).SelectedValue = Convert.ToInt32(ticket["id_route"]);
+                    }
+                }));
+            }
+        }
+
+        /* Применение изменений билета к самой БД */
+        private void TicketsButton_Click(object sender, EventArgs e)
+        {
+            TableLayoutPanel table = tableLayoutPanel10;
+            Button button = (Button)sender;
+            int id = Convert.ToInt32(button.Name.ToString().Split('_')[1]);
+            int id_route = Convert.ToInt32(((ComboBox)table.Controls[$"TicketsRoute_{id}"]).SelectedValue);
+            string time_start = ((TextBox)table.Controls[$"TicketsTimeStart_{id}"]).Text;
+            string time_end = ((TextBox)table.Controls[$"TicketsTimeEnd_{id}"]).Text;
+            string price = ((TextBox)table.Controls[$"TicketsPrice_{id}"]).Text;
+
+            //Console.WriteLine(
+            //    $"id_route = {id_route}\n" +
+            //    $"time_start = {time_start}\n" +
+            //    $"time_end = {time_end}\n" +
+            //    $"price = {price}\n"
+            //    );
+
+            db.Quary($"UPDATE tickets SET " +
+                $"id_route={id_route}, " +
+                $"time_start='{time_start}', " +
+                $"time_end='{time_end}',  " +
+                $"price={price} " +
+                $"WHERE id={id}");
+
+            Info.Info("Билет успешно отредактирован!");
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -344,6 +491,37 @@ namespace AIS_bus_station
         {
             textBox3.Text = "";
             LoadRoutes("SELECT * FROM routes");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string search = textBox4.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                Info.Error("Поле поиска не может быть пустым!");
+                return;
+            }
+            LoadTickets($"SELECT * FROM tickets WHERE time_start LIKE '%{search}%' OR time_end LIKE '%{search}%' OR price LIKE '%{search}%'");
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = "";
+            LoadTickets("SELECT * FROM tickets");
+        }
+
+        // Функция открытия формы настроек
+        private void OpenSettingsForm()
+        {
+            SettingsForm SettingsForm = new SettingsForm();
+            //SettingsForm.FormClosed += ((s, e) => { this.Show(); });
+            SettingsForm.Show();
+            //this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenSettingsForm();
         }
     }
 }

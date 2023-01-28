@@ -46,7 +46,7 @@ namespace AIS_bus_station
             string login = textBox_login.Text, password = db.GetMD5Hash(textBox_password.Text);
 
             // Выводим переменные в консоль
-            Debug.WriteLine(string.Format("login = {0}\npassword = {1}", login, password));
+            //Debug.WriteLine(string.Format("login = {0}\npassword = {1}", login, password));
 
             // Проверка если поле логина пустое
             if(string.IsNullOrEmpty(login))

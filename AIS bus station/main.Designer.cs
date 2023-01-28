@@ -155,6 +155,7 @@ namespace AIS_bus_station
             this.button3.TabIndex = 2;
             this.button3.Text = "Настройки";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -196,7 +197,7 @@ namespace AIS_bus_station
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(532, 348);
+            this.tabPage1.Size = new System.Drawing.Size(587, 335);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Продажи";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -218,13 +219,13 @@ namespace AIS_bus_station
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(526, 342);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(581, 329);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // button7
             // 
             this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button7.Location = new System.Drawing.Point(438, 13);
+            this.button7.Location = new System.Drawing.Point(493, 13);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 3;
@@ -246,16 +247,16 @@ namespace AIS_bus_station
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 292F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(526, 292);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(581, 279);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(266, 139);
+            this.label4.Location = new System.Drawing.Point(293, 133);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(257, 13);
+            this.label4.Size = new System.Drawing.Size(285, 13);
             this.label4.TabIndex = 1;
             this.label4.Text = "Количество мест";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -264,9 +265,9 @@ namespace AIS_bus_station
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 139);
+            this.label5.Location = new System.Drawing.Point(3, 133);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(257, 13);
+            this.label5.Size = new System.Drawing.Size(284, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Марка автобуса";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -276,13 +277,13 @@ namespace AIS_bus_station
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(3, 15);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(320, 20);
+            this.textBox2.Size = new System.Drawing.Size(375, 20);
             this.textBox2.TabIndex = 1;
             // 
             // button8
             // 
             this.button8.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button8.Location = new System.Drawing.Point(338, 13);
+            this.button8.Location = new System.Drawing.Point(393, 13);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 2;
@@ -295,7 +296,7 @@ namespace AIS_bus_station
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(532, 348);
+            this.tabPage2.Size = new System.Drawing.Size(587, 335);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Автобусы";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -317,17 +318,17 @@ namespace AIS_bus_station
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(526, 342);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(581, 329);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // button6
             // 
             this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button6.Location = new System.Drawing.Point(438, 13);
+            this.button6.Location = new System.Drawing.Point(493, 13);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 3;
-            this.button6.Text = "Сброс";
+            this.button6.Text = "Обновить";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -348,16 +349,16 @@ namespace AIS_bus_station
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(526, 292);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(581, 279);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(214, 139);
+            this.label3.Location = new System.Drawing.Point(242, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(203, 13);
+            this.label3.Size = new System.Drawing.Size(231, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "Количество мест";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -366,9 +367,9 @@ namespace AIS_bus_station
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 139);
+            this.label2.Location = new System.Drawing.Point(4, 133);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(203, 13);
+            this.label2.Size = new System.Drawing.Size(231, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Марка автобуса";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -378,13 +379,13 @@ namespace AIS_bus_station
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(3, 15);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(320, 20);
+            this.textBox1.Size = new System.Drawing.Size(375, 20);
             this.textBox1.TabIndex = 1;
             // 
             // button5
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button5.Location = new System.Drawing.Point(338, 13);
+            this.button5.Location = new System.Drawing.Point(393, 13);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 2;
@@ -430,7 +431,7 @@ namespace AIS_bus_station
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(75, 23);
             this.button9.TabIndex = 3;
-            this.button9.Text = "Сброс";
+            this.button9.Text = "Обновить";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -503,7 +504,7 @@ namespace AIS_bus_station
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(532, 348);
+            this.tabPage4.Size = new System.Drawing.Size(587, 335);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Билеты";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -525,25 +526,30 @@ namespace AIS_bus_station
             this.tableLayoutPanel9.RowCount = 2;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(526, 342);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(581, 329);
             this.tableLayoutPanel9.TabIndex = 1;
             // 
             // button11
             // 
             this.button11.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button11.Location = new System.Drawing.Point(438, 13);
+            this.button11.Location = new System.Drawing.Point(493, 13);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(75, 23);
             this.button11.TabIndex = 3;
-            this.button11.Text = "Сброс";
+            this.button11.Text = "Обновить";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // tableLayoutPanel10
             // 
-            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel10.ColumnCount = 5;
             this.tableLayoutPanel9.SetColumnSpan(this.tableLayoutPanel10, 3);
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel10.Controls.Add(this.label8, 1, 0);
             this.tableLayoutPanel10.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -551,18 +557,17 @@ namespace AIS_bus_station
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 292F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(526, 292);
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(581, 279);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(266, 139);
+            this.label8.Location = new System.Drawing.Point(120, 133);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(257, 13);
+            this.label8.Size = new System.Drawing.Size(109, 13);
             this.label8.TabIndex = 1;
             this.label8.Text = "Количество мест";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -571,9 +576,9 @@ namespace AIS_bus_station
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 139);
+            this.label9.Location = new System.Drawing.Point(4, 133);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(257, 13);
+            this.label9.Size = new System.Drawing.Size(109, 13);
             this.label9.TabIndex = 0;
             this.label9.Text = "Марка автобуса";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -583,18 +588,19 @@ namespace AIS_bus_station
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.Location = new System.Drawing.Point(3, 15);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(320, 20);
+            this.textBox4.Size = new System.Drawing.Size(375, 20);
             this.textBox4.TabIndex = 1;
             // 
             // button12
             // 
             this.button12.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button12.Location = new System.Drawing.Point(338, 13);
+            this.button12.Location = new System.Drawing.Point(393, 13);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(75, 23);
             this.button12.TabIndex = 2;
             this.button12.Text = "Поиск";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // main
             // 
