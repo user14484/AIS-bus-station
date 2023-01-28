@@ -60,12 +60,22 @@ namespace AIS_bus_station
             if(Convert.ToInt32(db.QuaryStr($"SELECT COUNT(*) FROM users WHERE login='{login}' AND password='{password}'")) > 0)
             {
                 DataUser = db.QuaryMas($"SELECT * FROM users WHERE login='{login}' AND password='{password}'").OrderBy(kvp => kvp.Key).First().Value;
+                OpenMainForm();
             }
             else
             {
                 Info.Error("Неверный логин или пароль!");
             }
             db.Close();
+        }
+
+        // Функция перехода на основную форму
+        private void OpenMainForm()
+        {
+            main MainForm = new main(DataUser);
+            MainForm.FormClosed += ((s, e) => { this.Close(); });
+            MainForm.Show();
+            this.Hide();
         }
     }
 }
