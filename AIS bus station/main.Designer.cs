@@ -29,6 +29,7 @@ namespace AIS_bus_station
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -246,7 +247,7 @@ namespace AIS_bus_station
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 292F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 279F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(581, 279);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
@@ -340,7 +341,7 @@ namespace AIS_bus_station
             this.tableLayoutPanel3.SetColumnSpan(this.tableLayoutPanel4, 3);
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.tableLayoutPanel4.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -356,9 +357,9 @@ namespace AIS_bus_station
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(242, 133);
+            this.label3.Location = new System.Drawing.Point(241, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(231, 13);
+            this.label3.Size = new System.Drawing.Size(230, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "Количество мест";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -369,7 +370,7 @@ namespace AIS_bus_station
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(4, 133);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(231, 13);
+            this.label2.Size = new System.Drawing.Size(230, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Марка автобуса";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -437,6 +438,7 @@ namespace AIS_bus_station
             // 
             // tableLayoutPanel8
             // 
+            this.tableLayoutPanel8.AutoScroll = true;
             this.tableLayoutPanel8.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel8.ColumnCount = 6;
             this.tableLayoutPanel7.SetColumnSpan(this.tableLayoutPanel8, 3);
@@ -542,6 +544,7 @@ namespace AIS_bus_station
             // 
             // tableLayoutPanel10
             // 
+            this.tableLayoutPanel10.AutoScroll = true;
             this.tableLayoutPanel10.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel10.ColumnCount = 5;
             this.tableLayoutPanel9.SetColumnSpan(this.tableLayoutPanel10, 3);
@@ -608,6 +611,7 @@ namespace AIS_bus_station
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(878, 437);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Автовокзал";
