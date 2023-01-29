@@ -39,24 +39,26 @@ namespace AIS_bus_station.admin
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 12);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(321, 21);
+            this.comboBox1.Size = new System.Drawing.Size(520, 21);
             this.comboBox1.TabIndex = 0;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(12, 39);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(321, 35);
+            this.button1.Size = new System.Drawing.Size(520, 35);
             this.button1.TabIndex = 1;
             this.button1.Text = "Удалить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // delticket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(345, 79);
+            this.ClientSize = new System.Drawing.Size(544, 79);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

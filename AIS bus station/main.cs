@@ -272,22 +272,29 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            await Task.Run(() => EditTextBoxRoutes(table));
+            await EditTextBoxRoutes(table);
         }
 
-        private async void EditTextBoxRoutes(TableLayoutPanel table)
+        private async Task EditTextBoxRoutes(TableLayoutPanel table)
         {
-            if (table.InvokeRequired)
+            //if (table.InvokeRequired)
+            //{
+            //    await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            //    table.Invoke(new MethodInvoker(delegate
+            //    {
+            //        foreach (Dictionary<string, string> route in AllRoutes.Values)
+            //        {
+            //            ((ComboBox)table.Controls["RouteBus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["id_bus"]);
+            //            ((ComboBox)table.Controls["RouteStatus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["status"]);
+            //        }
+            //    }));
+            //}
+            //await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            await Task.Yield();
+            foreach (Dictionary<string, string> route in AllRoutes.Values)
             {
-                await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
-                table.Invoke(new MethodInvoker(delegate
-                {
-                    foreach (Dictionary<string, string> route in AllRoutes.Values)
-                    {
-                        ((ComboBox)table.Controls["RouteBus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["id_bus"]);
-                        ((ComboBox)table.Controls["RouteStatus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["status"]);
-                    }
-                }));
+                ((ComboBox)table.Controls["RouteBus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["id_bus"]);
+                ((ComboBox)table.Controls["RouteStatus_" + route["id"]]).SelectedValue = Convert.ToInt32(route["status"]);
             }
         }
 
@@ -411,21 +418,27 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            await Task.Run(() => EditTextBoxTickets(table));
+            await EditTextBoxTickets(table);
         }
 
-        private async void EditTextBoxTickets(TableLayoutPanel table)
+        private async Task EditTextBoxTickets(TableLayoutPanel table)
         {
-            if (table.InvokeRequired)
+            //if (table.InvokeRequired)
+            //{
+            //    await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            //    table.Invoke(new MethodInvoker(delegate
+            //    {
+            //        foreach (Dictionary<string, string> ticket in AllTickets.Values)
+            //        {
+            //            ((ComboBox)table.Controls["TicketsRoute_" + ticket["id"]]).SelectedValue = Convert.ToInt32(ticket["id_route"]);
+            //        }
+            //    }));
+            //}
+            //await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            await Task.Yield();
+            foreach (Dictionary<string, string> ticket in AllTickets.Values)
             {
-                await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
-                table.Invoke(new MethodInvoker(delegate
-                {
-                    foreach (Dictionary<string, string> ticket in AllTickets.Values)
-                    {
-                        ((ComboBox)table.Controls["TicketsRoute_" + ticket["id"]]).SelectedValue = Convert.ToInt32(ticket["id_route"]);
-                    }
-                }));
+                ((ComboBox)table.Controls["TicketsRoute_" + ticket["id"]]).SelectedValue = Convert.ToInt32(ticket["id_route"]);
             }
         }
 
@@ -562,6 +575,20 @@ namespace AIS_bus_station
         {
             admin.addtickets addtickets = new admin.addtickets();
             addtickets.Show();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            admin.delticket delticket = new admin.delticket();
+            delticket.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            work.addsales addsales = new work.addsales();
+            addsales.FormClosed += ((s, ev) => { this.Show(); });
+            addsales.Show();
+            this.Hide();
         }
     }
 }

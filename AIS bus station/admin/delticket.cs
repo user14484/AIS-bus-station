@@ -20,15 +20,18 @@ namespace AIS_bus_station.admin
         {
             db.Open();
             InitializeComponent();
+            LoadTickets();
         }
 
         private void LoadTickets()
         {
             ticket.Clear();
+            Dictionary<int, Dictionary<string, string>> routes = db.QuaryMas("SELECT * FROM routes");
 
-            foreach (Dictionary<string, string> dict in db.QuaryMas("SELECT ticket.*, routes.departure_point as departure_point, route_start FROM ticket").Values)
+            foreach (Dictionary<string, string> dict in db.QuaryMas("SELECT * FROM tickets").Values)
             {
-                ticket.Add(Convert.ToInt32(dict["id"]), $"{dict["time_start"]} | {dict["time_end"]} - {dict["destination"]}");
+                int id = Convert.ToInt32(dict["id_route"]);
+                ticket.Add(Convert.ToInt32(dict["id"]), $"{routes[id]["number"]} | {routes[id]["departure_point"]} - {routes[id]["destination"]} | {dict["time_start"]} - {dict["time_end"]} | Цена: {dict["price"]}");
             }
 
             comboBox1.DisplayMember = "Value";
@@ -41,6 +44,26 @@ namespace AIS_bus_station.admin
         private void delticket_FormClosing(object sender, FormClosingEventArgs e)
         {
             db.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(comboBox1.SelectedValue);
+
+            try
+            {
+                db.Quary($"DELETE FROM tickets WHERE id={id}");
+                Info.Info("Билет успешно удалён!");
+            }
+            catch (Exception ex)
+            {
+                Info.Error(ex.Message);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
