@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DF260C80-99DC-48DC-AEDD-33B349993EF0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>AIS_bus_station</RootNamespace>
     <AssemblyName>AIS bus station</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -144,6 +144,18 @@
     <Compile Include="work\addsales.Designer.cs">
       <DependentUpon>addsales.cs</DependentUpon>
     </Compile>
+    <Compile Include="work\refundsales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="work\refundsales.Designer.cs">
+      <DependentUpon>refundsales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="work\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="work\Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="admin\addbus.resx">
       <DependentUpon>addbus.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="work\addsales.resx">
       <DependentUpon>addsales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="work\refundsales.resx">
+      <DependentUpon>refundsales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="work\Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Garet.ttf" />
     <None Include="Properties\Settings.settings">

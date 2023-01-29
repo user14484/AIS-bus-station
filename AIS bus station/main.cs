@@ -63,8 +63,6 @@ namespace AIS_bus_station
             button10.Font = fonts.UseGaret(8.0F);
             button11.Font = fonts.UseGaret(8.0F);
             button12.Font = fonts.UseGaret(8.0F);
-            button13.Font = fonts.UseGaret(8.0F);
-            button14.Font = fonts.UseGaret(8.0F);
             button15.Font = fonts.UseGaret(8.0F);
             button16.Font = fonts.UseGaret(8.0F);
             button17.Font = fonts.UseGaret(8.0F);
@@ -72,10 +70,15 @@ namespace AIS_bus_station
             button19.Font = fonts.UseGaret(8.0F);
             button20.Font = fonts.UseGaret(8.0F);
             label1.Font = fonts.UseGaret(13.0F);
+            label10.Font = fonts.UseGaretBold(8.0F);
+            label11.Font = fonts.UseGaretBold(8.0F);
+            label12.Font = fonts.UseGaretBold(8.0F);
+            label13.Font = fonts.UseGaretBold(8.0F);
 
             LoadBuses("SELECT * FROM buses");
             LoadRoutes("SELECT * FROM routes");
             LoadTickets("SELECT * FROM tickets");
+            LoadSales("SELECT * FROM sales");
         }
 
         // Функция загрузки автобусов из бд
@@ -470,9 +473,152 @@ namespace AIS_bus_station
             Info.Info("Билет успешно отредактирован!");
         }
 
+        // Функция загрузки продаж из бд
+        private async void LoadSales(string query)
+        {
+            Dictionary<int, string> DictionaryTickets = new Dictionary<int, string>();
+
+            //foreach (Dictionary<string, string> ticket in AllTickets.Values)
+            //{
+            //    DictionarySales.Add(Convert.ToInt32(ticket["id"]), AllRoutes);
+            //}
+
+            Dictionary<int, Dictionary<string, string>> routes = db.QuaryMas("SELECT * FROM routes");
+
+            foreach (Dictionary<string, string> dict in db.QuaryMas("SELECT * FROM tickets").Values)
+            {
+                int id = Convert.ToInt32(dict["id_route"]);
+                DictionaryTickets.Add(Convert.ToInt32(dict["id"]), $"{routes[id]["number"]} | {routes[id]["departure_point"]} - {routes[id]["destination"]} | {dict["time_start"]} - {dict["time_end"]} | Цена: {dict["price"]}");
+            }
+
+            TableLayoutPanel table = tableLayoutPanel6;
+            AllSales = db.QuaryMas(query);
+            table.RowCount = 0;
+            table.Controls.Clear();
+            table.RowCount = table.RowCount + 1;
+            table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            table.Controls.Add(new Label()
+            {
+                Name = "SalesLabel1",
+                Text = "Билет",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 0, table.RowCount - 1);
+            table.Controls.Add(new Label()
+            {
+                Name = "SalesLabel2",
+                Text = "ФИО покупателя",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 1, table.RowCount - 1);
+            table.Controls.Add(new Label()
+            {
+                Name = "SalesLabel3",
+                Text = "Идентификатор",
+                Font = fonts.UseGaret(8.0F),
+                Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))),
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            }, 2, table.RowCount - 1);
+            foreach (Dictionary<string, string> sales in AllSales.Values)
+            {
+                table.RowCount = table.RowCount + 1;
+                table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+                table.Controls.Add(new ComboBox()
+                {
+                    Name = "SalesTicket_" + sales["id"],
+                    DropDownStyle = ComboBoxStyle.DropDownList,
+                    DisplayMember = "Value",
+                    ValueMember = "Key",
+                    DataSource = new BindingSource(DictionaryTickets, null),
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 0, table.RowCount - 1);
+
+                table.Controls.Add(new TextBox()
+                {
+                    Name = "SalesName_" + sales["id"],
+                    Text = sales["name"],
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 1, table.RowCount - 1);
+                table.Controls.Add(new TextBox()
+                {
+                    Name = "SalesIdentifier_" + sales["id"],
+                    Text = sales["identifier"],
+                    Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
+                }, 2, table.RowCount - 1);
+                table.Controls.Add(new Button()
+                {
+                    Name = "SalesEdit_" + sales["id"],
+                    Text = "Изменить",
+                    Font = fonts.UseGaret(8.0F),
+                    Dock = DockStyle.Fill
+                }, 4, table.RowCount - 1);
+            }
+            foreach (Control button in table.Controls)
+            {
+                if (button.GetType() == typeof(Button))
+                {
+                    button.Click += new System.EventHandler(this.SalesButton_Click);
+                }
+            }
+            table.RowCount = table.RowCount + 1;
+            table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            await EditTextBoxSales(table);
+        }
+
+        private async Task EditTextBoxSales(TableLayoutPanel table)
+        {
+            //if (table.InvokeRequired)
+            //{
+            //    await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            //    table.Invoke(new MethodInvoker(delegate
+            //    {
+            //        foreach (Dictionary<string, string> ticket in AllTickets.Values)
+            //        {
+            //            ((ComboBox)table.Controls["TicketsRoute_" + ticket["id"]]).SelectedValue = Convert.ToInt32(ticket["id_route"]);
+            //        }
+            //    }));
+            //}
+            //await Task.Delay(Convert.ToInt32(Settings["load_tables_dalay"]));
+            await Task.Yield();
+            foreach (Dictionary<string, string> sales in AllSales.Values)
+            {
+                ((ComboBox)table.Controls["SalesTicket_" + sales["id"]]).SelectedValue = Convert.ToInt32(sales["id_ticket"]);
+            }
+        }
+
+        /* Применение изменений билета к самой БД */
+        private void SalesButton_Click(object sender, EventArgs e)
+        {
+            TableLayoutPanel table = tableLayoutPanel6;
+            Button button = (Button)sender;
+            int id = Convert.ToInt32(button.Name.ToString().Split('_')[1]);
+            int id_ticket = Convert.ToInt32(((ComboBox)table.Controls[$"SalesTicket_{id}"]).SelectedValue);
+            string name = ((TextBox)table.Controls[$"SalesName_{id}"]).Text;
+            string identifier = ((TextBox)table.Controls[$"SalesIdentifier_{id}"]).Text;
+
+            //Console.WriteLine(
+            //    $"id_ticket = {id_ticket}\n" +
+            //    $"name = {name}\n" +
+            //    $"identifier = {identifier}\n"
+            //    );
+
+            db.Quary($"UPDATE sales SET " +
+                $"id_ticket={id_ticket}, " +
+                $"name='{name}', " +
+                $"identifier='{identifier}' " +
+                $"WHERE id={id}");
+
+            Info.Info("Продажа успешно отредактирована!");
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
-
+            work.Users Users = new work.Users();
+            Users.FormClosed += ((s, ev) => { this.Show(); });
+            Users.Show();
+            this.Hide();
         }
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
@@ -586,9 +732,49 @@ namespace AIS_bus_station
         private void button1_Click(object sender, EventArgs e)
         {
             work.addsales addsales = new work.addsales();
-            addsales.FormClosed += ((s, ev) => { this.Show(); });
+            //addsales.FormClosed += ((s, ev) => { this.Show(); });
             addsales.Show();
-            this.Hide();
+            //this.Hide();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
+            LoadSales("SELECT * FROM sales");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string search = textBox2.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                Info.Error("Поле поиска не может быть пустым!");
+                return;
+            }
+            LoadSales($"SELECT * FROM sales WHERE name LIKE '%{search}%' OR identifier LIKE '%{search}%'");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            work.refundsales refundsales = new work.refundsales();
+            refundsales.Show();
+        }
+
+        //private void button12_Click(object sender, EventArgs e)
+        //{
+        //    string search = textBox4.Text;
+        //    if (string.IsNullOrEmpty(search))
+        //    {
+        //        Info.Error("Поле поиска не может быть пустым!");
+        //        return;
+        //    }
+        //    LoadTickets($"SELECT * FROM tickets WHERE time_start LIKE '%{search}%' OR time_end LIKE '%{search}%' OR price LIKE '%{search}%'");
+        //}
+
+        //private void button11_Click(object sender, EventArgs e)
+        //{
+        //    textBox4.Text = "";
+        //    LoadTickets("SELECT * FROM tickets");
+        //}
     }
 }

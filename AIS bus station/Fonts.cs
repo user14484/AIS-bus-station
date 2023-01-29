@@ -31,5 +31,10 @@ namespace AIS_bus_station
         {
             return new Font(fonts.Families[0], size);
         }
+
+        public Font UseGaretBold(float size = 16.0F)
+        {
+            return new Font(fonts.Families[0], size, FontStyle.Bold);
+        }
     }
 }
