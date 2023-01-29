@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DF260C80-99DC-48DC-AEDD-33B349993EF0}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>AIS_bus_station</RootNamespace>
     <AssemblyName>AIS bus station</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -71,6 +71,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\addbus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\addbus.Designer.cs">
+      <DependentUpon>addbus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="admin\addroute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\addroute.Designer.cs">
+      <DependentUpon>addroute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="admin\addtickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\addtickets.Designer.cs">
+      <DependentUpon>addtickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="admin\delbus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\delbus.Designer.cs">
+      <DependentUpon>delbus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="admin\delroute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\delroute.Designer.cs">
+      <DependentUpon>delroute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="admin\delticket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin\delticket.Designer.cs">
+      <DependentUpon>delticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="database.cs" />
     <Compile Include="debug.cs" />
     <Compile Include="Fonts.cs" />
@@ -102,6 +138,24 @@
     <Compile Include="test.Designer.cs">
       <DependentUpon>test.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="admin\addbus.resx">
+      <DependentUpon>addbus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="admin\addroute.resx">
+      <DependentUpon>addroute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="admin\addtickets.resx">
+      <DependentUpon>addtickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="admin\delbus.resx">
+      <DependentUpon>delbus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="admin\delroute.resx">
+      <DependentUpon>delroute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="admin\delticket.resx">
+      <DependentUpon>delticket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>

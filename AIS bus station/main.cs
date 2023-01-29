@@ -63,6 +63,14 @@ namespace AIS_bus_station
             button10.Font = fonts.UseGaret(8.0F);
             button11.Font = fonts.UseGaret(8.0F);
             button12.Font = fonts.UseGaret(8.0F);
+            button13.Font = fonts.UseGaret(8.0F);
+            button14.Font = fonts.UseGaret(8.0F);
+            button15.Font = fonts.UseGaret(8.0F);
+            button16.Font = fonts.UseGaret(8.0F);
+            button17.Font = fonts.UseGaret(8.0F);
+            button18.Font = fonts.UseGaret(8.0F);
+            button19.Font = fonts.UseGaret(8.0F);
+            button20.Font = fonts.UseGaret(8.0F);
             label1.Font = fonts.UseGaret(13.0F);
 
             LoadBuses("SELECT * FROM buses");
@@ -522,6 +530,38 @@ namespace AIS_bus_station
         private void button3_Click(object sender, EventArgs e)
         {
             OpenSettingsForm();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            admin.addbus addbus = new admin.addbus();
+            //SettingsForm.FormClosed += ((s, e) => { this.Show(); });
+            addbus.Show();
+            //this.Hide();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            admin.delbus delbus = new admin.delbus();
+            delbus.Show();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            admin.addroute addroute = new admin.addroute();
+            addroute.Show();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            admin.delroute delroute = new admin.delroute();
+            delroute.Show();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            admin.addtickets addtickets = new admin.addtickets();
+            addtickets.Show();
         }
     }
 }
