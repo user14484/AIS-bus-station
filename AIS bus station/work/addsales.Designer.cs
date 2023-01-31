@@ -33,9 +33,9 @@ namespace AIS_bus_station.work
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -77,12 +77,15 @@ namespace AIS_bus_station.work
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Поиск:";
             // 
-            // textBox1
+            // button2
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(293, 20);
-            this.textBox1.TabIndex = 0;
+            this.button2.Location = new System.Drawing.Point(305, 16);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(78, 25);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Найти";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -92,15 +95,14 @@ namespace AIS_bus_station.work
             this.button1.TabIndex = 1;
             this.button1.Text = "Сбросить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // textBox1
             // 
-            this.button2.Location = new System.Drawing.Point(305, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 25);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Найти";
-            this.button2.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(6, 20);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(293, 20);
+            this.textBox1.TabIndex = 0;
             // 
             // groupBox3
             // 

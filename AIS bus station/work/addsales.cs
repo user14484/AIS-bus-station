@@ -32,14 +32,14 @@ namespace AIS_bus_station.work
             AllBuses = db.QuaryMas("SELECT * FROM buses");
             AllTickets = db.QuaryMas("SELECT * FROM tickets");
             AllSales = db.QuaryMas("SELECT * FROM sales");
-            LoadTickets();
+            LoadTickets("SELECT * FROM tickets");
         }
 
-        private void LoadTickets()
+        private void LoadTickets(string query)
         {
             ticket.Clear();
 
-            foreach (Dictionary<string, string> dict in AllTickets.Values)
+            foreach (Dictionary<string, string> dict in db.QuaryMas(query).Values)
             {
                 int id = Convert.ToInt32(dict["id_route"]);
                 int id_bus = Convert.ToInt32(Allroutes[Convert.ToInt32(AllTickets[Convert.ToInt32(dict["id"])]["id_route"])]["id_bus"]);
@@ -118,6 +118,36 @@ namespace AIS_bus_station.work
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             e.Graphics.DrawString(result, new Font("Centuey Gothic", 14, FontStyle.Regular), Brushes.Black, new PointF(0, 0));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string search = textBox1.Text;
+
+            if(string.IsNullOrEmpty(search))
+            {
+                Info.Warning("Поле поиска не может быть пустым!");
+                return;
+            }
+
+            string query =
+                $"SELECT tickets.* " +
+                $"FROM tickets INNER JOIN routes ON(tickets.id_route=routes.id) " +
+                $"WHERE routes.departure_point LIKE '%{search}%' OR routes.destination LIKE '%{search}%' OR routes.number LIKE '%{search}%' " +
+                $"OR tickets.time_start LIKE '%{search}%' OR tickets.time_end LIKE '%{search}%'";
+
+            if(search.All(char.IsDigit))
+            {
+                query += $"  OR tickets.price={search}";
+            }
+
+            LoadTickets(query);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            LoadTickets("SELECT * FROM tickets");
         }
     }
 }

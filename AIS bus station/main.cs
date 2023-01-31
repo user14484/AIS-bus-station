@@ -33,19 +33,62 @@ namespace AIS_bus_station
         // Настройки программы
         private Dictionary<string, string> Settings = new Dictionary<string, string>();
 
+        IniFile INI = new IniFile("config.ini");
+
         public main(Dictionary<string, string> data)
         {
-            // Загрузка настроек
-            IniFile INI = new IniFile("config.ini");
-            if (!INI.KeyExists("dev", "load_tables_dalay"))
-            {
-                INI.Write("dev", "load_tables_dalay", "400");
-            }
-            Settings.Add("load_tables_dalay", INI.ReadINI("dev", "load_tables_dalay"));
-
             db.Open();
             DataUser = data;
+
             InitializeComponent();
+
+            // Загрузка настроек
+            if (!(INI.ReadINI("dev", "edit_identifier").Length > 0))
+            {
+                INI.Write("dev", "edit_identifier", "0");
+            }
+            if (!(INI.ReadINI("dev", "func_refund").Length > 0))
+            {
+                INI.Write("dev", "func_refund", "1");
+            }
+            if (!(INI.ReadINI("dev", "func_edit_tables").Length > 0))
+            {
+                INI.Write("dev", "func_edit_tables", "1");
+            }
+            if (!(INI.ReadINI("dev", "func_login").Length > 0))
+            {
+                INI.Write("dev", "func_login", "1");
+            }
+            if (!(INI.ReadINI("dev", "func_sale").Length > 0))
+            {
+                INI.Write("dev", "func_sale", "1");
+            }
+            //Settings.Add("load_tables_dalay", INI.ReadINI("dev", "load_tables_dalay"));
+
+            Settings.Add("edit_identifier", INI.ReadINI("dev", "edit_identifier"));
+            Settings.Add("func_refund", INI.ReadINI("dev", "func_refund"));
+            Settings.Add("func_edit_tables", INI.ReadINI("dev", "func_edit_tables"));
+            Settings.Add("func_login", INI.ReadINI("dev", "func_login"));
+            Settings.Add("func_sale", INI.ReadINI("dev", "func_sale"));
+
+            // Если юзер не админ
+            if(Convert.ToInt32(DataUser["access"]) != 1)
+            {
+                if(!CheckedINI(Settings["func_refund"]))
+                {
+                    button2.Enabled = false;
+                }
+                if(!CheckedINI(Settings["func_edit_tables"]))
+                {
+                    tabControl1.Enabled = false;
+                }
+                if(!CheckedINI(Settings["func_sale"]))
+                {
+                    button1.Enabled = false;
+                }
+                button3.Enabled = false;
+                button4.Enabled = false;
+            }
 
             // Показываем юзеру под каким пользователем он залогинен
             label1.Text = $"Пользователь: {DataUser["name"]}";
@@ -79,6 +122,19 @@ namespace AIS_bus_station
             LoadRoutes("SELECT * FROM routes");
             LoadTickets("SELECT * FROM tickets");
             LoadSales("SELECT * FROM sales");
+        }
+
+        private bool CheckedINI(string value)
+        {
+            int temp = Convert.ToInt32(value);
+
+            switch (temp)
+            {
+                case 1:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         // Функция загрузки автобусов из бд
@@ -150,6 +206,12 @@ namespace AIS_bus_station
             string mark = ((TextBox)table.Controls["BusMark_" + id.ToString()]).Text;
             string seats = ((TextBox)table.Controls["BusSeats_" + id.ToString()]).Text;
             //Info.Info($"mark = {mark}\nseats = {seats}\nid = {id}");
+
+            if(!seats.All(char.IsDigit))
+            {
+                Info.Error("Поле с количеством мест должно быть числом!");
+                return;
+            }
 
             db.Quary($"UPDATE buses SET mark='{mark}', seats={seats} WHERE id={id}");
 
@@ -456,6 +518,12 @@ namespace AIS_bus_station
             string time_end = ((TextBox)table.Controls[$"TicketsTimeEnd_{id}"]).Text;
             string price = ((TextBox)table.Controls[$"TicketsPrice_{id}"]).Text;
 
+            if(!price.All(char.IsDigit))
+            {
+                Info.Error("Поле с ценой должно быть числом!");
+                return;
+            }
+
             //Console.WriteLine(
             //    $"id_route = {id_route}\n" +
             //    $"time_start = {time_start}\n" +
@@ -545,6 +613,7 @@ namespace AIS_bus_station
                 {
                     Name = "SalesIdentifier_" + sales["id"],
                     Text = sales["identifier"],
+                    ReadOnly = edit_identifier(),
                     Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)))
                 }, 2, table.RowCount - 1);
                 table.Controls.Add(new Button()
@@ -565,6 +634,15 @@ namespace AIS_bus_station
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             await EditTextBoxSales(table);
+        }
+
+        private bool edit_identifier()
+        {
+            if(Convert.ToInt32(Settings["edit_identifier"]) == 1)
+            {
+                return false;
+            }
+            return true;
         }
 
         private async Task EditTextBoxSales(TableLayoutPanel table)

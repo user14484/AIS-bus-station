@@ -60,6 +60,22 @@ namespace AIS_bus_station
             if(Convert.ToInt32(db.QuaryStr($"SELECT COUNT(*) FROM users WHERE login='{login}' AND password='{password}'")) > 0)
             {
                 DataUser = db.QuaryMas($"SELECT * FROM users WHERE login='{login}' AND password='{password}'").OrderBy(kvp => kvp.Key).First().Value;
+
+                if(Convert.ToInt32(DataUser["access"]) != 1)
+                {
+                    IniFile INI = new IniFile("config.ini");
+                    if (!(INI.ReadINI("dev", "func_login").Length > 0))
+                    {
+                        INI.Write("dev", "func_login", "1");
+                    }
+                    if(!CheckedINI(INI.ReadINI("dev", "func_login")))
+                    {
+                        Info.Warning("Функция авторизации отключена!");
+                        db.Close();
+                        return;
+                    }
+                }
+
                 OpenMainForm();
             }
             else
@@ -67,6 +83,19 @@ namespace AIS_bus_station
                 Info.Error("Неверный логин или пароль!");
             }
             db.Close();
+        }
+
+        private bool CheckedINI(string value)
+        {
+            int temp = Convert.ToInt32(value);
+
+            switch (temp)
+            {
+                case 1:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         // Функция перехода на основную форму
