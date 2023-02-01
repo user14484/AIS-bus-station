@@ -68,7 +68,7 @@ namespace AIS_bus_station
                     {
                         INI.Write("dev", "func_login", "1");
                     }
-                    if(!CheckedINI(INI.ReadINI("dev", "func_login")))
+                    if(CheckedINI(INI.ReadINI("dev", "func_login")))
                     {
                         Info.Warning("Функция авторизации отключена!");
                         db.Close();

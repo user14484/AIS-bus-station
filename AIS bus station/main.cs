@@ -224,8 +224,8 @@ namespace AIS_bus_station
         {
             Dictionary<int, string> DictionaryBuses = new Dictionary<int, string>();
             Dictionary<int, string> DictionaryStatus = new Dictionary<int, string>(){
-                { 0, "Не завершён" },
-                { 1, "Завершён" }
+                { 0, "Отключён" },
+                { 1, "Включен" }
             };
 
             foreach (Dictionary<string, string> bus in AllBuses.Values)
@@ -729,7 +729,15 @@ namespace AIS_bus_station
                 Info.Error("Поле поиска не может быть пустым!");
                 return;
             }
-            LoadRoutes($"SELECT * FROM routes WHERE departure_point LIKE '%{search}%' OR destination LIKE '%{search}%' OR number LIKE '%{search}%'");
+
+            string query =
+                $"SELECT routes.* " +
+                $"FROM routes INNER JOIN buses ON(routes.id_bus=buses.id) " +
+                $"WHERE buses.mark LIKE '%{search}%'" +
+                $"OR routes.departure_point LIKE '%{search}%' OR routes.destination LIKE '%{search}%' OR routes.number LIKE '%{search}%'";
+
+            LoadRoutes(query);
+            //LoadRoutes($"SELECT * FROM routes WHERE departure_point LIKE '%{search}%' OR destination LIKE '%{search}%' OR number LIKE '%{search}%'");
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -746,7 +754,15 @@ namespace AIS_bus_station
                 Info.Error("Поле поиска не может быть пустым!");
                 return;
             }
-            LoadTickets($"SELECT * FROM tickets WHERE time_start LIKE '%{search}%' OR time_end LIKE '%{search}%' OR price LIKE '%{search}%'");
+
+            string query =
+                $"SELECT tickets.* " +
+                $"FROM tickets INNER JOIN routes ON(tickets.id_route=routes.id) " +
+                $"WHERE routes.number LIKE '%{search}%'" +
+                $"OR tickets.time_start LIKE '%{search}%' OR tickets.time_end LIKE '%{search}%' OR tickets.price LIKE '%{search}%'";
+
+            LoadTickets(query);
+            //LoadTickets($"SELECT * FROM tickets WHERE time_start LIKE '%{search}%' OR time_end LIKE '%{search}%' OR price LIKE '%{search}%'");
         }
 
         private void button11_Click(object sender, EventArgs e)

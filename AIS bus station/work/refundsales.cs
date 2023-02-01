@@ -14,6 +14,8 @@ namespace AIS_bus_station.work
     {
         private Infomation Info = new Infomation();
         private database db = new database();
+        // Объект с шрифтами
+        private Fonts fonts = new Fonts();
 
         private int id_sales = 0;
 
@@ -28,6 +30,7 @@ namespace AIS_bus_station.work
             AllTickets = db.QuaryMas("SELECT * FROM tickets");
             InitializeComponent();
             button1.Enabled = false;
+            textBox2.Font = fonts.UseGaret(10.0F);
         }
 
         private void button1_Click(object sender, EventArgs e)
