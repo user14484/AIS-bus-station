@@ -205,6 +205,9 @@
     <EmbeddedResource Include="work\Users.resx">
       <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="bin\Debug\AIS bus station.exe.config" />
+    <None Include="bin\Debug\config.ini" />
+    <None Include="bin\Debug\db.db" />
     <None Include="Properties\Garet.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,7 +241,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\AIS bus station.exe" />
+    <Content Include="bin\Debug\AIS bus station.pdb" />
+    <Content Include="bin\Debug\AIS bus station_boxed.exe" />
+    <Content Include="bin\Debug\System.Data.SQLite.dll" />
     <Content Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

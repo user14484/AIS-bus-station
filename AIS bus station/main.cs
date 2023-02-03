@@ -141,9 +141,15 @@ namespace AIS_bus_station
         private void LoadBuses(string query)
         {
             TableLayoutPanel table = tableLayoutPanel4;
+            table.GetType().GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(table, true, null);
+            table.Visible = false;
+            table.Controls.Clear();
+            table.SuspendLayout();
             AllBuses = db.QuaryMas(query);
             table.RowCount = 0;
-            table.Controls.Clear();
+            //table.Controls.Clear();
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             table.Controls.Add(new Label()
@@ -195,6 +201,8 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            table.ResumeLayout();
+            table.Visible = true;
         }
 
         /* Применение изменений автобусов к самой БД */
@@ -224,8 +232,8 @@ namespace AIS_bus_station
         {
             Dictionary<int, string> DictionaryBuses = new Dictionary<int, string>();
             Dictionary<int, string> DictionaryStatus = new Dictionary<int, string>(){
-                { 0, "Отключён" },
-                { 1, "Включен" }
+                { 0, "Включен" },
+                { 1, "Отключён" }
             };
 
             foreach (Dictionary<string, string> bus in AllBuses.Values)
@@ -234,6 +242,12 @@ namespace AIS_bus_station
             }
 
             TableLayoutPanel table = tableLayoutPanel8;
+            table.GetType().GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(table, true, null);
+            table.Visible = false;
+            table.Controls.Clear();
+            table.SuspendLayout();
             AllRoutes = db.QuaryMas(query);
             table.RowCount = 0;
             table.Controls.Clear();
@@ -337,6 +351,8 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            table.ResumeLayout();
+            table.Visible = true;
             await EditTextBoxRoutes(table);
         }
 
@@ -397,6 +413,12 @@ namespace AIS_bus_station
             }
 
             TableLayoutPanel table = tableLayoutPanel10;
+            table.GetType().GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(table, true, null);
+            table.Visible = false;
+            table.Controls.Clear();
+            table.SuspendLayout();
             AllTickets = db.QuaryMas(query);
             table.RowCount = 0;
             table.Controls.Clear();
@@ -483,6 +505,8 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            table.ResumeLayout();
+            table.Visible = true;
             await EditTextBoxTickets(table);
         }
 
@@ -560,6 +584,12 @@ namespace AIS_bus_station
             }
 
             TableLayoutPanel table = tableLayoutPanel6;
+            table.GetType().GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(table, true, null);
+            table.Visible = false;
+            table.Controls.Clear();
+            table.SuspendLayout();
             AllSales = db.QuaryMas(query);
             table.RowCount = 0;
             table.Controls.Clear();
@@ -591,6 +621,7 @@ namespace AIS_bus_station
             }, 2, table.RowCount - 1);
             foreach (Dictionary<string, string> sales in AllSales.Values)
             {
+                table.SuspendLayout();
                 table.RowCount = table.RowCount + 1;
                 table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
                 table.Controls.Add(new ComboBox()
@@ -623,6 +654,7 @@ namespace AIS_bus_station
                     Font = fonts.UseGaret(8.0F),
                     Dock = DockStyle.Fill
                 }, 4, table.RowCount - 1);
+                table.ResumeLayout();
             }
             foreach (Control button in table.Controls)
             {
@@ -633,6 +665,8 @@ namespace AIS_bus_station
             }
             table.RowCount = table.RowCount + 1;
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            table.ResumeLayout();
+            table.Visible = true;
             await EditTextBoxSales(table);
         }
 
